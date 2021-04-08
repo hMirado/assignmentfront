@@ -1,0 +1,15 @@
+.login-form {
+    padding: 60px 1rem;
+}
+mat-card {
+    max-width: 400px;
+    margin: 2em auto;
+    text-align: center;
+}
+.input-100 {
+    width: 100%;
+}
+.btn-login {
+    margin: auto;
+    text-align: center;
+}

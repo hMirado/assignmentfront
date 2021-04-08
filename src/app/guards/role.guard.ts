@@ -1,34 +1,20 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-  Router,
-} from '@angular/router';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import {AuthService} from "../services/auth.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class RoleGuard implements CanActivate {
+
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    //return true;
-    // on n'autorisera l'activation de la route associée que si on est
-    // bien un admin
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.isAdmin().then((admin) => {
       if (admin) {
-        console.log("GUARD : vous êtes admin, autorisation accordée")
         return true;
       } else {
         // On renvoie vers la page d'accueil
@@ -38,4 +24,5 @@ export class AuthGuard implements CanActivate {
       }
     });
   }
+  
 }

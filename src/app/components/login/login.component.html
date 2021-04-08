@@ -1,0 +1,24 @@
+<div class="login-form">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+                <p>Veuillez vous connecter</p>
+                <p>
+                    <mat-form-field appearance="standard" class="input-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email" placeholder="Email">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="standard"  class="input-100">
+                        <mat-label>Mots de passe</mat-label>
+                        <input matInput type="password" formControlName="password" placeholder="Mots de passe">
+                    </mat-form-field>
+                </p>
+            </form>
+        </mat-card-content>
+        <mat-card-actions class="btn-login">
+            <button type="button" mat-raised-button color="primary" (click)="onLoginSubmit()">Se connecter</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
