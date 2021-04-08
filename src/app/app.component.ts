@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AssignmentsService } from './shared/assignments.service';
-import { AuthService } from './shared/auth.service';
+import { AssignmentsService } from './services/assignments.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,7 @@ export class AppComponent {
   constructor(private authService:AuthService, private router:Router,
               private assignmentsService:AssignmentsService) {}
 
+  /*
   login() {
     // si je suis pas loggé, je me loggue, sinon, si je suis
     // loggé je me déloggue et j'affiche la page d'accueil
@@ -41,4 +42,5 @@ export class AppComponent {
         this.router.navigate(["/home"], {replaceUrl:true});
       })
   }
+  */
 }
