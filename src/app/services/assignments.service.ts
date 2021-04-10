@@ -23,10 +23,11 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri);
   }
 
-  getAssignmentsPagine(page:number, limit:number):Observable<any> {
-    return this.http.get<Assignment[]>(this.uri+"?page="+page + "&limit="+limit);
+  getAssignmentsPagine(page:number, limit:number, rendu:boolean):Observable<any> {
+    return this.http.get<Assignment[]>(this.uri+"?page="+page + "&limit="+limit +"&rendu="+rendu);
   }
 
+ 
   // Pour votre culture, on peut aussi utiliser httpClient avec une promesse
   // et then, async, await etc. Mais ce n'est pas la norme chez les developpeurs
   // Angular

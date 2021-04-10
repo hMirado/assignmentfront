@@ -1,10 +1,14 @@
 <main class="container">
-    <h1><span matBadge="{{totalDocs}}" matBadgeOverlap="false" matBadgeColor="warn">Liste des assignments</span></h1>
+    <h1>Liste des assignments
+    </h1>
 
     <mat-divider></mat-divider>
     <mat-tab-group>
-        <mat-tab label = "Déjà rendu">
-            <mat-list *ngFor="let a of assignments">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span matBadge="{{totalDocsRendu}}" matBadgeOverlap="false">Rendu</span>
+            </ng-template>
+            <mat-list *ngFor="let a of assignmentsRendu">
                 <nav>
                     <a routerLink="/assignment/{{a.id}}">
                         <h3 mat-subheader>{{a.dateDeRendu | date}}</h3>
@@ -25,21 +29,64 @@
             </mat-list>
 
             <nav>
-                <button mat-raised-button color="primary" (click)="premierePage()">
+                <button mat-raised-button color="primary" (click)="premierePage(true)" class="btnPagination">
                     Première
                 </button>
-                <button mat-raised-button color="primary" [disabled]="!hasPrevPage" (click)="pagePrecedente()">
+                <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu" (click)="pagePrecedente(true)"
+                    class="btnPagination">
                     Prev
                 </button>
-                <button mat-raised-button color="primary" [disabled]="!hasNextPage" (click)="pageSuivante()">
+                <button mat-raised-button color="primary" [disabled]="!hasNextPageRendu" (click)="pageSuivante(true)"
+                    class="btnPagination">
                     Suiv
                 </button>
-                <button mat-raised-button color="primary" (click)="dernierePage()">
+                <button mat-raised-button color="primary" (click)="dernierePage(true)" class="btnPagination">
                     Dernière
                 </button>
             </nav>
         </mat-tab>
 
-        <mat-tab label = "Pas encore rendu"> Banana </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span matBadge="{{totalDocsNonRendu}}" matBadgeOverlap="false" matBadgeColor="warn">Pas encore rendu</span>
+            </ng-template>
+            <mat-list *ngFor="let a of assignmentsNonRendu">
+                <nav>
+                    <a routerLink="/assignment/{{a.id}}">
+                        <h3 mat-subheader>{{a.dateDeRendu | date}}</h3>
+                        <mat-list-item>
+                            <mat-divider></mat-divider>
+                            <p *ngIf="a.rendu; else nonsoumis" appRendu>
+                                {{a.nom}}, rendu par l'élève.
+                            </p>
+                            <ng-template #nonsoumis>
+                                <p appNonRendu>
+                                    {{a.nom}}, non encore rendu par l'élève.
+                                </p>
+                            </ng-template>
+
+                        </mat-list-item>
+                    </a>
+                </nav>
+            </mat-list>
+
+            <nav>
+                <button mat-raised-button color="primary" (click)="premierePage(false)" class="btnPagination">
+                    Première
+                </button>
+                <button mat-raised-button color="primary" [disabled]="!hasPrevPageNonRendu"
+                    (click)="pagePrecedente(false)" class="btnPagination">
+                    Prev
+                </button>
+                <button mat-raised-button color="primary" [disabled]="!hasNextPageNonRendu"
+                    (click)="pageSuivante(false)" class="btnPagination">
+                    Suiv
+                </button>
+                <button mat-raised-button color="primary" (click)="dernierePage(false)" class="btnPagination">
+                    Dernière
+                </button>
+            </nav>
+
+        </mat-tab>
     </mat-tab-group>
 </main>
