@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/home']);
                 }
             } else if (!data.success) {
-                this.toastrService.success(data.message);
+                this.toastrService.error(data.message);
             }
         }, (error) => {
             console.log(error);
