@@ -74,8 +74,7 @@ const routes: Routes = [
 @NgModule({
     entryComponents: [UsersComponent],
     declarations: [
-        AppComponent,
-        AssignmentsComponent,
+        AppComponent,       
         RenduDirective,
         NonRenduDirective,
         AssignmentDetailComponent,
@@ -83,7 +82,8 @@ const routes: Routes = [
         EditAssigmentComponent,
         LoginComponent,
         HeaderComponent,
-        UsersComponent
+        UsersComponent,
+        AssignmentsComponent,
     ],
     imports: [
         BrowserModule,

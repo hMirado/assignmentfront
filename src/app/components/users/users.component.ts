@@ -1,8 +1,8 @@
 import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UsersService} from "../../services/users.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
     selector: 'app-users',
