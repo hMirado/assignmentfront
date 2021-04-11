@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AssignmentsService} from '../../services/assignments.service';
-import {Assignment} from './assignment.model';
-import {MatTabChangeEvent} from "@angular/material/tabs";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AssignmentsService } from '../../services/assignments.service';
+import { Assignment } from './assignment.model';
 
 @Component({
     selector: 'app-assignments',
@@ -10,60 +9,64 @@ import {MatTabChangeEvent} from "@angular/material/tabs";
     styleUrls: ['./assignments.component.css'],
 })
 export class AssignmentsComponent implements OnInit {
-    assignments: Assignment[];
-    assignmentsNonRendu: Assignment[];
-    page: number = 1;
-    pageNonRendu: number = 1;
-    limit: number = 10;
-    limitNonRendu: number = 10;
-    totalDocs: number;
-    totalDocsNonRendu: number;
-    totalPages: number;
-    totalPagesNonRendu: number;
-    hasPrevPage: boolean;
-    hasPrevPageNonRendu: boolean;
-    prevPage: number;
-    prevPageNonRendu: number;
-    hasNextPage: boolean;
-    hasNextPageNonRendu: boolean;
-    nextPage: number;
-    nextPageNonRendu: number;
+    assignmentsRendu: Assignment[];
+    pageRendu: number = 1;
+    limitRendu: number = 10;
+    totalDocsRendu: number;
+    totalPagesRendu: number;
+    hasPrevPageRendu: boolean;
+    prevPageRendu: number;
+    hasNextPageRendu: boolean;
+    nextPageRendu: number;
+    
 
-    tabId: number = 0;
+    assignmentsNonRendu: Assignment[];
+    pageNonRendu: number = 1;
+    limitNonRendu: number = 10;
+    totalDocsNonRendu: number;
+    totalPagesNonRendu: number;
+    hasPrevPageNonRendu: boolean;
+    prevPageNonRendu: number;
+    hasNextPageNonRendu: boolean;
+    nextPageNonRendu: number;
 
     // on injecte le service de gestion des assignments
     constructor(private assignmentsService: AssignmentsService,
-                private route: ActivatedRoute,
-                private router: Router) {
+        private route: ActivatedRoute,
+        private router: Router) {
     }
 
     ngOnInit() {
         // on regarde s'il y a page= et limit = dans l'URL
         this.route.queryParams.subscribe(queryParams => {
-            this.page = +queryParams.page || 1;
-            this.limit = +queryParams.limit || 10;
+            this.pageRendu = +queryParams.pageRendu || 1;
+            this.limitRendu = +queryParams.limitRendu || 10;
+
+            this.pageNonRendu = +queryParams.pageNonRendu || 1;
+            this.limitNonRendu = +queryParams.limitNomRendu || 10;
 
             this.getAssignmentsRendu();
+            this.getAssignmentsNonRendu();
         });
     }
 
     getAssignmentsRendu() {
-        this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
+        this.assignmentsService.getAssignmentsPagine(this.pageRendu, this.limitRendu, true)
             .subscribe(data => {
-                this.assignments = data.docs;
-                this.page = data.page;
-                this.limit = data.limit;
-                this.totalDocs = data.totalDocs;
-                this.totalPages = data.totalPages;
-                this.hasPrevPage = data.hasPrevPage;
-                this.prevPage = data.prevPage;
-                this.hasNextPage = data.hasNextPage;
-                this.nextPage = data.nextPage;
+                this.assignmentsRendu = data.docs;
+                this.pageRendu = data.page;
+                this.limitRendu = data.limit;
+                this.totalDocsRendu = data.totalDocs;
+                this.totalPagesRendu = data.totalPages;
+                this.hasPrevPageRendu = data.hasPrevPage;
+                this.prevPageRendu = data.prevPage;
+                this.hasNextPageRendu = data.hasNextPage;
+                this.nextPageRendu = data.nextPage;
             });
     }
 
     getAssignmentsNonRendu() {
-        this.assignmentsService.getAssignmentsPagineNonRendu(this.page, this.limit)
+        this.assignmentsService.getAssignmentsPagine(this.pageNonRendu, this.limitNonRendu, false)
             .subscribe(data => {
                 this.assignmentsNonRendu = data.docs;
                 this.pageNonRendu = data.page;
@@ -77,18 +80,6 @@ export class AssignmentsComponent implements OnInit {
             });
     }
 
-    onLoadAssignments(event: MatTabChangeEvent) {
-        console.log(event);
-        // @ts-ignore
-        if (event.index == 0) {
-            this.getAssignmentsRendu();
-            this.tabId = 0;
-        } else {
-            this.getAssignmentsNonRendu();
-            this.tabId = 1;
-        }
-    }
-
     onDeleteAssignment(event) {
         // event = l'assignment à supprimer
 
@@ -99,80 +90,96 @@ export class AssignmentsComponent implements OnInit {
             })
     }
 
-    premierePage() {
-        if (this.tabId == 1) {
+    premierePage(rendu: boolean) {
+        if (rendu) {            
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: 1,
-                    limit: this.limitNonRendu,
+                    pageRendu: 1,
+                    limitRendu: this.limitRendu,
+                    pageNonRendu: this.pageNonRendu,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         } else {
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: 1,
-                    limit: this.limit,
+                    pageRendu: this.pageRendu,
+                    limitRendu: this.limitRendu,
+                    pageNonRendu: 1,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         }
+
     }
 
-    pageSuivante() {
-        console.log(this.tabId);
-        /*
-        this.page = this.nextPage;
-        this.getAssignments();*/
-        if (this.tabId == 1) {
+    pageSuivante(rendu: boolean) {
+        if (rendu) {            
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: this.nextPageNonRendu,
-                    limit: this.limitNonRendu,
+                    pageRendu: this.nextPageRendu,
+                    limitRendu: this.limitRendu,
+                    pageNonRendu: this.pageNonRendu,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         } else {
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: this.nextPage,
-                    limit: this.limit,
+                    pageRendu: this.pageRendu,
+                    limitRendu: this.limitRendu,
+                    pageNonRendu: this.nextPageNonRendu,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         }
+
     }
 
 
-    pagePrecedente() {
-        if (this.tabId == 1) {
+    pagePrecedente(rendu: boolean) {
+        if (rendu) {
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: this.prevPageNonRendu,
-                    limit: this.limitNonRendu,
+                    pageRendu: this.prevPageRendu,
+                    limitRendu: this.limitRendu,                    
+                    pageNonRendu: this.pageNonRendu,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         } else {
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: this.prevPage,
-                    limit: this.limit,
+                    pageRendu: this.pageRendu,
+                    limitRendu: this.limitRendu,
+                    pageNonRendu: this.prevPageNonRendu,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         }
+
     }
 
-    dernierePage() {
-        if (this.tabId == 1) {
+    dernierePage(rendu: boolean) {
+        if (rendu) {
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: this.totalPagesNonRendu,
-                    limit: this.limitNonRendu,
+                    pageRendu: this.totalPagesRendu,
+                    limitRendu: this.limitRendu,                    
+                    pageNonRendu: this.pageNonRendu,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         } else {
             this.router.navigate(['/home'], {
                 queryParams: {
-                    page: this.totalPages,
-                    limit: this.limit,
+                    pageRendu: this.pageRendu,
+                    limitRendu: this.limitRendu,
+                    pageNonRendu: this.totalPagesNonRendu,
+                    limitNonRendu: this.limitNonRendu,
                 }
             });
         }
+
     }
 }

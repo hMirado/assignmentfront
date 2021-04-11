@@ -17,6 +17,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 import {AssignmentsComponent} from './components/assignments/assignments.component';
@@ -33,6 +36,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './components/login/login.component';
 import {RoleGuard} from "./guards/role.guard";
 import { HeaderComponent } from './components/header/header.component';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
     {
@@ -59,10 +63,16 @@ const routes: Routes = [
         path: "assignment/:id/edit",
         component: EditAssigmentComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: "user",
+        component: UsersComponent,
+        canActivate: [AuthGuard]
     }
 ]
 
 @NgModule({
+    entryComponents: [UsersComponent],
     declarations: [
         AppComponent,
         AssignmentsComponent,
@@ -72,7 +82,8 @@ const routes: Routes = [
         AddAssignmentComponent,
         EditAssigmentComponent,
         LoginComponent,
-        HeaderComponent
+        HeaderComponent,
+        UsersComponent
     ],
     imports: [
         BrowserModule,
@@ -91,7 +102,10 @@ const routes: Routes = [
         }),
         MatToolbarModule,
         MatTabsModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatGridListModule
     ],
     providers: [],
     bootstrap: [AppComponent]

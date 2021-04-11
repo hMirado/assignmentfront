@@ -13,6 +13,7 @@ import {ToastrService} from 'ngx-toastr';
 export class LoginComponent implements OnInit {
     previousUrl;
     loginForm: FormGroup;
+    hide = true;
 
     constructor(private formBuilder: FormBuilder,
                 private authService: AuthService,

@@ -15,7 +15,6 @@ export class AssignmentsService {
   constructor(private loggingService:LoggingService, private http:HttpClient) { }
 
   uri = "http://localhost:8010/api/assignments";
-  uriNonRend = "http://localhost:8010/api/assignmentsNonRendu";
   //uri = "https://backmadagascar2021.herokuapp.com/api/assignments"
 
   getAssignments():Observable<Assignment[]> {
@@ -24,14 +23,11 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri);
   }
 
-  getAssignmentsPagine(page:number, limit:number):Observable<any> {
-    return this.http.get<Assignment[]>(this.uri+"?page="+page + "&limit="+limit);
+  getAssignmentsPagine(page:number, limit:number, rendu:boolean):Observable<any> {
+    return this.http.get<Assignment[]>(this.uri+"?page="+page + "&limit="+limit +"&rendu="+rendu);
   }
 
-  getAssignmentsPagineNonRendu(page:number, limit:number):Observable<any> {
-    return this.http.get<Assignment[]>(this.uriNonRend+"?page="+page + "&limit="+limit);
-  }
-
+ 
   // Pour votre culture, on peut aussi utiliser httpClient avec une promesse
   // et then, async, await etc. Mais ce n'est pas la norme chez les developpeurs
   // Angular
