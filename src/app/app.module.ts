@@ -37,6 +37,7 @@ import {LoginComponent} from './components/login/login.component';
 import {RoleGuard} from "./guards/role.guard";
 import { HeaderComponent } from './components/header/header.component';
 import { UsersComponent } from './components/users/users.component';
+import { UserFormComponent } from './components/users/user-form/user-form.component';
 
 const routes: Routes = [
     {
@@ -83,7 +84,8 @@ const routes: Routes = [
         EditAssigmentComponent,
         LoginComponent,
         HeaderComponent,
-        UsersComponent
+        UsersComponent,
+        UserFormComponent
     ],
     imports: [
         BrowserModule,

@@ -39,7 +39,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         setTimeout(() => {
             this.dataSource.paginator = this.paginatorProf;
             this.dataSourceEtu.paginator = this.paginatorEtu;
-        }, 200);
+        }, 500);
     }
 
     getProf() {
