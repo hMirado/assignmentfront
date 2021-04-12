@@ -9,8 +9,7 @@ import {usersGeneres} from "../shared/data";
   providedIn: 'root'
 })
 export class UsersService {
-  users:User[];
-
+  selecteUser: User;
   constructor(private loggingService:LoggingService, private http:HttpClient) { }
 
   uri = "http://localhost:8010/api/users";
@@ -20,8 +19,7 @@ export class UsersService {
     return this.http.get<User[]>(this.uri + "?role="+role)
   }
 
-  addUser(user:User):Observable<any> {
-
+  addUser(user: User):Observable<any>{
     return this.http.post(this.uri + '/register', user);
   }
 

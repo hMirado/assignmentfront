@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from "@angular/router";
 import {AuthGuard} from "../../guards/auth.guard";
 import {ToastrService} from 'ngx-toastr';
+import {User} from "../../shared/user.model";
 
 @Component({
     selector: 'app-login',
@@ -12,15 +12,15 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
     previousUrl;
-    loginForm: FormGroup;
     hide = true;
 
-    constructor(private formBuilder: FormBuilder,
-                private authService: AuthService,
+    email = '';
+    password = '';
+
+    constructor(private authService: AuthService,
                 private router: Router,
                 private authGuard: AuthGuard,
                 private toastrService: ToastrService) {
-        this.createForm();
     }
 
     ngOnInit(): void {
@@ -33,18 +33,19 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    createForm() {
-        this.loginForm = this.formBuilder.group({
-            email: ['', Validators.required],
-            password: ['', Validators.required]
-        });
-    }
-
     onLoginSubmit() {
-        const user = {
-            email: this.loginForm.get('email').value,
-            password: this.loginForm.get('password').value
-        };
+        if(!this.email) {
+            this.toastrService.error("Veuillez renseigner votre email");
+            return;
+        }
+        if(!this.password) {
+            this.toastrService.error("Veuillez renseigner votre mots de passe");
+            return;
+        }
+
+        let user = new User();
+        user.email = this.email;
+        user.password = this.password;
 
         this.authService.signIn(user).subscribe((data: any) => {
             if (data.success) {
@@ -52,14 +53,17 @@ export class LoginComponent implements OnInit {
                 if (this.previousUrl) {
                     this.router.navigate([this.previousUrl]);
                 } else {
+                    this.toastrService.clear();
                     this.toastrService.success(data.message);
                     this.router.navigate(['/home']);
                 }
             } else if (!data.success) {
+                this.toastrService.clear();
                 this.toastrService.error(data.message);
             }
         }, (error) => {
-            console.log(error);
+            this.toastrService.clear();
+            this.toastrService.error(error);
         });
     }
 
