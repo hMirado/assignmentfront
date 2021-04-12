@@ -91,16 +91,17 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent,
-        AssignmentsComponent,
+        AppComponent,       
         RenduDirective,
         NonRenduDirective,
+        AssignmentsComponent,
         AssignmentDetailComponent,
         AddAssignmentComponent,
         EditAssigmentComponent,
         LoginComponent,
         HeaderComponent,
         UsersComponent,
+        add_user
         AddUserComponent,
         EditUserComponent
     ],

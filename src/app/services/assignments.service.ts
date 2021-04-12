@@ -5,6 +5,7 @@ import { catchError, filter, map, tap } from 'rxjs/operators';
 import { Assignment } from '../components/assignments/assignment.model';
 import { LoggingService } from '../shared/logging.service';
 import { assignmentsGeneres } from '../shared/data';
+import { User } from '../shared/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class AssignmentsService {
 
   constructor(private loggingService:LoggingService, private http:HttpClient) { }
 
-  uri = "http://localhost:8010/api/assignments";
-  //uri = "https://backmadagascar2021.herokuapp.com/api/assignments"
+ // uri = "http://localhost:8010/api/assignments";
+  uri = "https://backmadagascar2021.herokuapp.com/api/assignments"
 
   getAssignments():Observable<Assignment[]> {
     console.log("Dans le service de gestion des assignments...")
@@ -129,19 +130,36 @@ export class AssignmentsService {
 
   // autre version qui permet de récupérer un subscribe une fois que tous les inserts
   // ont été effectués
-  peuplerBDAvecForkJoin(): Observable<any> {
-    const appelsVersAddAssignment = [];
-
+  peuplerBDAvecForkJoin(professeurs:User[], etudiants:User[]): Observable<any> {
+   const appelsVersAddAssignment = [];
+    //console.log("liste professeur => "+professeurs+" étudiants => "+etudiants);
+  //  console.log("professeur 0 "+professeurs[this.getRandomArbitrary(0, etudiants.length)].fName+ "role => "+professeurs[0].role+"/ étudiant 0 "+etudiants[this.getRandomArbitrary(0, etudiants.length)].fName+" role => "+etudiants[0].role);
     assignmentsGeneres.forEach((a) => {
+
       const nouvelAssignment = new Assignment();
 
       nouvelAssignment.id = a.id;
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
+      nouvelAssignment.auteur = etudiants[this.getRandomInt(etudiants.length)];
+      nouvelAssignment.professeur = professeurs[this.getRandomInt(professeurs.length)];
+      nouvelAssignment.image = a.image;
+      if(nouvelAssignment.rendu){
+        nouvelAssignment.note = this.getRandomInt(20);
+      }else{
+        nouvelAssignment.note = null;
+      }
+      nouvelAssignment.matiere = a.matiere;
+      nouvelAssignment.remarque = "Remarque "+ nouvelAssignment.nom + "." ;
+      nouvelAssignment.image = a.image;
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });
     return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * max);
   }
 }
