@@ -6,7 +6,6 @@ import {LoginComponent} from './components/login/login.component';
 import {AddAssignmentComponent} from './components/assignments/add-assignment/add-assignment.component';
 import {AssignmentsComponent} from './components/assignments/assignments.component';
 import {AssignmentDetailComponent} from './components/assignments/assignment-detail/assignment-detail.component';
-import {HeaderComponent} from './components/header/header.component';
 import {UsersComponent} from './components/users/users.component';
 import {AddUserComponent} from './components/users/add-form/add-user.component';
 import {EditAssigmentComponent} from './components/assignments/edit-assigment/edit-assigment.component';
@@ -31,7 +30,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from "@angular/material/sidenav";
-
+import {MatStepperModule} from '@angular/material/stepper';
 import {RenduDirective} from './shared/rendu.directive';
 import {NonRenduDirective} from './shared/non-rendu.directive';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -91,15 +90,14 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent,
-        AssignmentsComponent,
+        AppComponent,       
         RenduDirective,
         NonRenduDirective,
+        AssignmentsComponent,
         AssignmentDetailComponent,
         AddAssignmentComponent,
         EditAssigmentComponent,
         LoginComponent,
-        HeaderComponent,
         UsersComponent,
         AddUserComponent,
         EditUserComponent
@@ -126,7 +124,9 @@ const routes: Routes = [
         MatPaginatorModule,
         MatGridListModule,
         MatSidenavModule,
-        MatSelectModule
+        MatSelectModule,
+        MatStepperModule,
+        
     ],
     providers: [RoleGuard, AuthGuard, AuthService, UsersService],
     bootstrap: [AppComponent]
