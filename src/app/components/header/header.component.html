@@ -1,17 +1,24 @@
-<mat-toolbar color="primary" *ngIf="authService.loggedIn()">
-    <span>
-        <a routerLink="/home" class="text-white" style="text-decoration: none">{{title}}</a>
-    </span>
-    <span class="fill-remaining-space"></span>
-    <a routerLink="/add" class="text-white">
-        <button mat-button>
-            Ajouter un assignment
-        </button>
-    </a>
-    <a routerLink="/user" class="text-white">
-        <button mat-button>
-            Utilisateur
-        </button>
-    </a>
-    <button mat-button class="text-white" (click)="onLogout()">Se deconnecter</button>
-</mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+                 >
+        <mat-toolbar color="primary">Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item href="#">Link 1</a>
+            <a mat-list-item href="#">Link 2</a>
+            <a mat-list-item href="#">Link 3</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button
+                    type="button"
+                    aria-label="Toggle sidenav"
+                    mat-icon-button
+                    (click)="drawer.toggle()">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>ng7-menu-sidenav</span>
+        </mat-toolbar>
+        <!-- Add Content Here -->
+    </mat-sidenav-content>
+</mat-sidenav-container>
