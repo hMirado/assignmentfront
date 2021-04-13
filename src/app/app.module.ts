@@ -20,6 +20,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
 
 
 import {AssignmentsComponent} from './components/assignments/assignments.component';
@@ -105,7 +107,11 @@ const routes: Routes = [
         MatBadgeModule,
         MatTableModule,
         MatPaginatorModule,
-        MatGridListModule
+        MatGridListModule,
+        MatStepperModule,
+        MatSelectModule,
+        
+        
     ],
     providers: [],
     bootstrap: [AppComponent]
