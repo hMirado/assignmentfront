@@ -31,7 +31,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from "@angular/material/sidenav";
-
+import {MatStepperModule} from '@angular/material/stepper';
 import {RenduDirective} from './shared/rendu.directive';
 import {NonRenduDirective} from './shared/non-rendu.directive';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -101,7 +101,6 @@ const routes: Routes = [
         LoginComponent,
         HeaderComponent,
         UsersComponent,
-        add_user
         AddUserComponent,
         EditUserComponent
     ],
@@ -127,7 +126,9 @@ const routes: Routes = [
         MatPaginatorModule,
         MatGridListModule,
         MatSidenavModule,
-        MatSelectModule
+        MatSelectModule,
+        MatStepperModule,
+        
     ],
     providers: [RoleGuard, AuthGuard, AuthService, UsersService],
     bootstrap: [AppComponent]

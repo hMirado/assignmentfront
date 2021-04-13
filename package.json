@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.4",
     "@auth0/angular-jwt": "^5.0.2",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
+    "angular-number-picker": "^2.2.0",
     "express": "^4.17.1",
     "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",
