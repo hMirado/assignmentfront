@@ -13,7 +13,7 @@ export class AuthService {
     user;
 
     //uri = "http://localhost:8010/api/authentication";
-    uri = "https://backmadagascar2021.herokuapp.com/api/authentication";
+    uri = "https://miradoassignmentback.herokuapp.com/api/authentication";
 
     constructor(private http: HttpClient) {
     }
