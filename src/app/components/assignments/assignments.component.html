@@ -1,92 +1,109 @@
-<main class="container">
-    <!--<button mat-stroked-button color="primary" (click)="peuplerAssignmnents()">peupler Assignments</button> -->
-    <h1>Liste des assignments</h1>
-
-    <mat-divider></mat-divider>
-    <mat-tab-group>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <span matBadge="{{totalDocsRendu}}" matBadgeOverlap="false">Rendu</span>
-            </ng-template>
-            <mat-list *ngFor="let a of assignmentsRendu">
-                <nav>
-                    <a routerLink="/assignment/{{a.id}}">
-                        <h3 mat-subheader>{{a.dateDeRendu | date}}</h3>
-                        <mat-list-item>
-                            <mat-divider></mat-divider>
-                            <p *ngIf="a.rendu; else nonsoumis" appRendu>
-                                {{a.nom}}, rendu par l'élève.
-                            </p>
-                            <ng-template #nonsoumis>
-                                <p appNonRendu>
-                                    {{a.nom}}, non encore rendu par l'élève.
-                                </p>
+<div class="main-content mt-1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <mat-card-header class="card-header global-card">
+                        <mat-card-title class="card-title ">Liste des assignments</mat-card-title>
+                    </mat-card-header>
+                    <mat-tab-group>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span matBadge="{{totalDocsRendu}}" matBadgeOverlap="false">Rendu</span>
                             </ng-template>
+                            <div class="row">
+                                <div class="col-4 mt-1" *ngFor="let a of assignmentsRendu">
+                                    <mat-card>
+                                        <mat-card-header>
+                                            <img mat-card-avatar src="{{a.image}}" class="example-header-image">
+                                            <mat-card-title>{{a.professeur.fName}} {{a.professeur.lName}}</mat-card-title>
+                                            <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
+                                        </mat-card-header>
+                                        <mat-card-content>
+                                            <mat-grid-list cols="2" rowHeight="3:1">
+                                                <mat-grid-tile>Etat :</mat-grid-tile>
+                                                <mat-grid-tile *ngIf="a.rendu; else nonsoumis" appRendu>REMIS
+                                                </mat-grid-tile>
+                                                <ng-template #nonsoumis>
+                                                    <mat-grid-tile appNonRendu>NON REMI</mat-grid-tile>
+                                                </ng-template>
+                                                <mat-grid-tile>Date :</mat-grid-tile>
+                                                <mat-grid-tile class="text-left">{{a.dateDeRendu}}</mat-grid-tile>
+                                            </mat-grid-list>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </div>
 
-                        </mat-list-item>
-                    </a>
-                </nav>
-            </mat-list>
+                            <nav class="m-2 text-center justify-content-center">
+                                <button mat-raised-button color="primary" (click)="premierePage(true)"
+                                        class="btnPagination">
+                                    Première
+                                </button>
+                                <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu"
+                                        (click)="pagePrecedente(true)"
+                                        class="btnPagination">
+                                    Prev
+                                </button>
+                                <button mat-raised-button color="primary" [disabled]="!hasNextPageRendu"
+                                        (click)="pageSuivante(true)"
+                                        class="btnPagination">
+                                    Suiv
+                                </button>
+                                <button mat-raised-button color="primary" (click)="dernierePage(true)"
+                                        class="btnPagination">
+                                    Dernière
+                                </button>
+                            </nav>
+                        </mat-tab>
 
-            <nav>
-                <button mat-raised-button color="primary" (click)="premierePage(true)" class="btnPagination">
-                    Première
-                </button>
-                <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu" (click)="pagePrecedente(true)"
-                    class="btnPagination">
-                    Prev
-                </button>
-                <button mat-raised-button color="primary" [disabled]="!hasNextPageRendu" (click)="pageSuivante(true)"
-                    class="btnPagination">
-                    Suiv
-                </button>
-                <button mat-raised-button color="primary" (click)="dernierePage(true)" class="btnPagination">
-                    Dernière
-                </button>
-            </nav>
-        </mat-tab>
-
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <span matBadge="{{totalDocsNonRendu}}" matBadgeOverlap="false" matBadgeColor="warn">Pas encore rendu</span>
-            </ng-template>
-            <mat-list *ngFor="let a of assignmentsNonRendu">
-                <nav>
-                    <a routerLink="/assignment/{{a.id}}">
-                        <h3 mat-subheader>{{a.dateDeRendu | date}}</h3>
-                        <mat-list-item>
-                            <mat-divider></mat-divider>
-                            <p *ngIf="a.rendu; else nonsoumis" appRendu>
-                                {{a.nom}}, rendu par l'élève.
-                            </p>
-                            <ng-template #nonsoumis>
-                                <p appNonRendu>
-                                    {{a.nom}}, non encore rendu par l'élève.
-                                </p>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span matBadge="{{totalDocsNonRendu}}" matBadgeOverlap="false" matBadgeColor="warn">Pas encore rendu</span>
                             </ng-template>
+                            <mat-list *ngFor="let a of assignmentsNonRendu">
+                                <nav>
+                                    <a routerLink="/assignment/{{a.id}}">
+                                        <h3 mat-subheader>{{a.dateDeRendu | date}}</h3>
+                                        <mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <p *ngIf="a.rendu; else nonsoumis" appRendu>
+                                                {{a.nom}}, rendu par l'élève.
+                                            </p>
+                                            <ng-template #nonsoumis>
+                                                <p appNonRendu>
+                                                    {{a.nom}}, non encore rendu par l'élève.
+                                                </p>
+                                            </ng-template>
 
-                        </mat-list-item>
-                    </a>
-                </nav>
-            </mat-list>
+                                        </mat-list-item>
+                                    </a>
+                                </nav>
+                            </mat-list>
 
-            <nav>
-                <button mat-raised-button color="primary" (click)="premierePage(false)" class="btnPagination">
-                    Première
-                </button>
-                <button mat-raised-button color="primary" [disabled]="!hasPrevPageNonRendu"
-                    (click)="pagePrecedente(false)" class="btnPagination">
-                    Prev
-                </button>
-                <button mat-raised-button color="primary" [disabled]="!hasNextPageNonRendu"
-                    (click)="pageSuivante(false)" class="btnPagination">
-                    Suiv
-                </button>
-                <button mat-raised-button color="primary" (click)="dernierePage(false)" class="btnPagination">
-                    Dernière
-                </button>
-            </nav>
+                            <nav>
+                                <button mat-raised-button color="primary" (click)="premierePage(false)"
+                                        class="btnPagination">
+                                    Première
+                                </button>
+                                <button mat-raised-button color="primary" [disabled]="!hasPrevPageNonRendu"
+                                        (click)="pagePrecedente(false)" class="btnPagination">
+                                    Prev
+                                </button>
+                                <button mat-raised-button color="primary" [disabled]="!hasNextPageNonRendu"
+                                        (click)="pageSuivante(false)" class="btnPagination">
+                                    Suiv
+                                </button>
+                                <button mat-raised-button color="primary" (click)="dernierePage(false)"
+                                        class="btnPagination">
+                                    Dernière
+                                </button>
+                            </nav>
 
-        </mat-tab>
-    </mat-tab-group>
-</main>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

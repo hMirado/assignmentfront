@@ -6,3 +6,9 @@
 .btnPagination{
   margin: 2px;
 }
+.global-card{
+  background-color:#3f51b5 !important;
+  padding:15px !important;
+  color: #f7f7f7;
+}
+

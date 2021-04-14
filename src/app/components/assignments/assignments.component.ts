@@ -65,6 +65,8 @@ export class AssignmentsComponent implements OnInit {
                 this.prevPageRendu = data.prevPage;
                 this.hasNextPageRendu = data.hasNextPage;
                 this.nextPageRendu = data.nextPage;
+
+                console.log(data.docs)
             });
     }
 
