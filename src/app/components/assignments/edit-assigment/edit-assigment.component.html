@@ -1,6 +1,6 @@
-<h2>Modification de l'assignment</h2>
+<h2>Modification de l'assignment, asseigné par {{ assignment.professeur.fName + " " + assignment.professeur.lName}}</h2>
 
-<form ngForm #formAssignment class="form" (submit)="onSubmit($event); formAssignment.reset();">
+<form ngForm #formAssignment class="form" (submit)="onSubmit($event)">
   <mat-form-field>
     <input matInput placeholder="Nom du devoir" required [(ngModel)]="nom" name="nom">
   </mat-form-field>
@@ -12,6 +12,13 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 
     <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-checkbox (click)="onAssignmentRendu()">
+    Rendu
+  </mat-checkbox>
+  <mat-form-field [hidden]="!isRendu">
+    <input matInput placeholder="note" required type="number" [(ngModel)]="note" name="note" min="0" max="20">
   </mat-form-field>
 
   <button mat-stroked-button color="primary">
