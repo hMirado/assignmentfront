@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { AssignmentsService } from './services/assignments.service';
 import { AuthService } from './services/auth.service';
+import {MatSidenav} from "@angular/material/sidenav";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-root',
@@ -9,10 +11,16 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Application de gestion des assignments';
+  title = "Application de gestion des assignments";
+  userToken: boolean = false;
 
-  constructor(private authService:AuthService, private router:Router,
-              private assignmentsService:AssignmentsService) {}
+  @ViewChild(MatSidenav) sidenav: MatSidenav;
+  opened: boolean = true;
+
+  constructor(private authService:AuthService,
+              private router:Router,
+              private assignmentsService:AssignmentsService,
+              private toastrService: ToastrService) {}
 
   /*
   login() {
@@ -43,4 +51,10 @@ export class AppComponent {
       })
   }
   */
+  onLogout() {
+    this.userToken = false;
+    this.authService.signOut();
+    this.toastrService.info('Déconnexion réussi');
+    this.router.navigate(['/']);
+  }
 }

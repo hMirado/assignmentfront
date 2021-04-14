@@ -6,7 +6,6 @@ import {LoginComponent} from './components/login/login.component';
 import {AddAssignmentComponent} from './components/assignments/add-assignment/add-assignment.component';
 import {AssignmentsComponent} from './components/assignments/assignments.component';
 import {AssignmentDetailComponent} from './components/assignments/assignment-detail/assignment-detail.component';
-import {HeaderComponent} from './components/header/header.component';
 import {UsersComponent} from './components/users/users.component';
 import {AddUserComponent} from './components/users/add-form/add-user.component';
 import {EditAssigmentComponent} from './components/assignments/edit-assigment/edit-assigment.component';
@@ -99,7 +98,6 @@ const routes: Routes = [
         AddAssignmentComponent,
         EditAssigmentComponent,
         LoginComponent,
-        HeaderComponent,
         UsersComponent,
         AddUserComponent,
         EditUserComponent

@@ -26,6 +26,10 @@ export class AddUserComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    generateId() {
+        return Math.round(Math.random()*10000);
+    }
+
     onSubmit(event) {
         if(!this.lName) {
             this.toastrService.error("Veuillez renseigner le nom de l'utilisateur");
@@ -44,11 +48,15 @@ export class AddUserComponent implements OnInit {
             return;
         }
 
+        let roleCourt = (this.role === 'professeur') ? 'prof' : (this.role === 'etudiant') ? 'etu' : 'admin';
+        var id = roleCourt + "0000" + (this.generateId()+1).toString().slice(-5);
+
         let nouvelUser = new User();
         nouvelUser.lName = this.lName;
         nouvelUser.fName = this.fName;
         nouvelUser.email = this.email;
         nouvelUser.password = this.password;
+        nouvelUser.id = id;
         nouvelUser.image = this.image;
         nouvelUser.role = this.role;
 

@@ -8,5 +8,67 @@
 -->
 
 <!-- Indique qu'on affichera le composant qui correspond à l'URL courant -->
-<app-header></app-header>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary" class="example-header">
+    <span>
+        <a routerLink="/home" class="text-white" style="text-decoration: none">{{title}}</a>
+    </span>
+    <span class="example-spacer"></span>
+    <button (click)="sidenav.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened>
+        <mat-nav-list>
+            <!-- Sidebar -->
+            <ul class="sidebar navbar-nav">
+                <div class=" fixed-search ">
+                    <div class="sidebar-date-and-time">
+                        <span class="side-mnu">
+                            <a routerLink="/" class="d-flex flex-row bd-highlight mt-2 mb-2">
+                                <button mat-button>
+                                    <mat-icon>home</mat-icon>
+                                    Accueil
+                                </button>
+                            </a>
+                         </span>
+                        <mat-divider></mat-divider>
+                        <span class="side-mnu">
+                            <a routerLink="/add" class="d-flex flex-row bd-highlight mt-2 mb-2">
+                                <button mat-button>
+                                    <mat-icon>post_add</mat-icon>
+                                    Ajouter un assignment
+                                </button>
+                            </a>
+                         </span>
+                        <mat-divider></mat-divider>
+                        <span class="side-mnu">
+                            <a routerLink="/user" class="d-flex flex-row bd-highlight mt-2 mb-2">
+                                <button mat-button>
+                                    <mat-icon>account_box</mat-icon>
+                                    Utilisateur
+                                </button>
+                            </a>
+                         </span>
+                        <mat-divider></mat-divider>
+                        <span class="side-mnu">
+                            <a (click)="onLogout()" class="d-flex flex-row bd-highlight mt-2 mb-2">
+                                <button mat-button>
+                                    <mat-icon>logout</mat-icon>
+                                    Se deconnecter
+                                </button>
+                            </a>
+                         </span>
+                    </div>
+                </div>
+                <!--side bar-->
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="pb-1">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
