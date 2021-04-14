@@ -13,7 +13,7 @@ export class UsersService {
   constructor(private loggingService:LoggingService, private http:HttpClient) { }
 
   //uri = "http://localhost:8010/api/users";
-  uri = "https://miradoassignmentback.herokuapp.com/api/users"
+  uri = "https://miradoassignmentback.herokuapp.com/api/users";
 
   getUsersPagine(role: string):Observable<any> {
     return this.http.get<User[]>(this.uri + "?role="+role)
