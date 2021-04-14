@@ -31,6 +31,17 @@
                                                 <mat-grid-tile class="text-left">{{a.dateDeRendu}}</mat-grid-tile>
                                             </mat-grid-list>
                                         </mat-card-content>
+                                        <mat-card-actions>
+                                            <button mat-icon-button class="mr-1" color="primary" routerLink="/assignment/{{a.id}}" aria-label="DETAIL">
+                                                <mat-icon class="material-icons-outlined">visibility</mat-icon>
+                                            </button>
+                                            <button *ngIf="isAuthorized" mat-icon-button class="mr-1 gren-icon" routerLink="/assignment/{{a.id}}/edit" aria-label="MODIFIER">
+                                                <mat-icon class="material-icons-outlined">edit</mat-icon>
+                                            </button>
+                                            <button *ngIf="isAuthorized" mat-icon-button color="warn" aria-label="SUPPRIMER" (click)="onDeleteAssignment(a.id)">
+                                                <mat-icon class="material-icons-outlined">delete</mat-icon>
+                                            </button>
+                                        </mat-card-actions>
                                     </mat-card>
                                 </div>
                             </div>
@@ -61,25 +72,43 @@
                             <ng-template mat-tab-label>
                                 <span matBadge="{{totalDocsNonRendu}}" matBadgeOverlap="false" matBadgeColor="warn">Pas encore rendu</span>
                             </ng-template>
-                            <mat-list *ngFor="let a of assignmentsNonRendu">
-                                <nav>
-                                    <a routerLink="/assignment/{{a.id}}">
-                                        <h3 mat-subheader>{{a.dateDeRendu | date}}</h3>
-                                        <mat-list-item>
-                                            <mat-divider></mat-divider>
-                                            <p *ngIf="a.rendu; else nonsoumis" appRendu>
-                                                {{a.nom}}, rendu par l'élève.
-                                            </p>
-                                            <ng-template #nonsoumis>
-                                                <p appNonRendu>
-                                                    {{a.nom}}, non encore rendu par l'élève.
-                                                </p>
-                                            </ng-template>
-
-                                        </mat-list-item>
-                                    </a>
-                                </nav>
-                            </mat-list>
+                            <div class="row">
+                                <div class="col-4 mt-1" *ngFor="let a of assignmentsNonRendu">
+                                    <mat-card>
+                                        <mat-card-header>
+                                            <img mat-card-avatar src="{{a.image}}" class="example-header-image">
+                                            <mat-card-title>{{a.professeur.fName}} {{a.professeur.lName}}</mat-card-title>
+                                            <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
+                                        </mat-card-header>
+                                        <mat-card-content>
+                                            <mat-grid-list cols="2" rowHeight="3:1">
+                                                <mat-grid-tile>Etat :</mat-grid-tile>
+                                                <mat-grid-tile *ngIf="a.rendu; else nonsoumis" appRendu>
+                                                    REMI
+                                                </mat-grid-tile>
+                                                <ng-template #nonsoumis>
+                                                    <mat-grid-tile appNonRendu>
+                                                        NON REMIS
+                                                    </mat-grid-tile>
+                                                </ng-template>
+                                                <mat-grid-tile>Date :</mat-grid-tile>
+                                                <mat-grid-tile class="text-left">{{a.dateDeRendu}}</mat-grid-tile>
+                                            </mat-grid-list>
+                                        </mat-card-content>
+                                        <mat-card-actions>
+                                            <button mat-icon-button class="mr-1" color="primary" routerLink="/assignment/{{a.id}}" aria-label="DETAIL">
+                                                <mat-icon class="material-icons-outlined">visibility</mat-icon>
+                                            </button>
+                                            <button *ngIf="isAuthorized" mat-icon-button class="mr-1 gren-icon" routerLink="/assignment/{{a.id}}/edit" aria-label="MODIFIER">
+                                                <mat-icon class="material-icons-outlined">edit</mat-icon>
+                                            </button>
+                                            <button *ngIf="isAuthorized" mat-icon-button class="mr-1" color="warn" aria-label="SUPPRIMER" (click)="onDeleteAssignment(a.id)">
+                                                <mat-icon class="material-icons-outlined">delete</mat-icon>
+                                            </button>
+                                        </mat-card-actions>
+                                    </mat-card>
+                                </div>
+                            </div>
 
                             <nav>
                                 <button mat-raised-button color="primary" (click)="premierePage(false)"

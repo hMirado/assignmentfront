@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 import { AssignmentsService } from '../../services/assignments.service';
 import { Assignment } from './assignment.model';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'app-assignments',
@@ -32,11 +33,14 @@ export class AssignmentsComponent implements OnInit {
     hasNextPageNonRendu: boolean;
     nextPageNonRendu: number;
 
+    isAuthorized: boolean = false;
+
     // on injecte le service de gestion des assignments
     constructor(private assignmentsService: AssignmentsService,
         private route: ActivatedRoute,
         private router: Router,
-        private usersService:UsersService) {
+        private usersService:UsersService,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -51,6 +55,11 @@ export class AssignmentsComponent implements OnInit {
             this.getAssignmentsRendu();
             this.getAssignmentsNonRendu();
         });
+
+        var role = localStorage.getItem('user');
+        if(JSON.parse(role).role === 'admin' || JSON.parse(role).role === 'professeur') {
+            this.isAuthorized = true;
+        }
     }
 
     getAssignmentsRendu() {
@@ -65,8 +74,6 @@ export class AssignmentsComponent implements OnInit {
                 this.prevPageRendu = data.prevPage;
                 this.hasNextPageRendu = data.hasNextPage;
                 this.nextPageRendu = data.nextPage;
-
-                console.log(data.docs)
             });
     }
 
@@ -85,14 +92,14 @@ export class AssignmentsComponent implements OnInit {
             });
     }
 
-    onDeleteAssignment(event) {
-        // event = l'assignment à supprimer
-
-        //this.assignments.splice(index, 1);
-        this.assignmentsService.deleteAssignment(event)
-            .subscribe(message => {
-                console.log(message);
-            })
+    onDeleteAssignment(id) {
+        console.log(id)
+        this.assignmentsService
+            .deleteAssignment(id)
+            .subscribe((reponse) => {
+                console.log(reponse.message);
+                this.router.navigate(['/home']);
+            });
     }
 
     premierePage(rendu: boolean) {

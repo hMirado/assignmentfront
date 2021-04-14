@@ -50,17 +50,7 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   onDelete() {
-    this.assignmentsService
-      .deleteAssignment(this.assignmentTransmis)
-      .subscribe((reponse) => {
-        console.log(reponse.message);
-
-        // on cache l'affichage du détail
-        this.assignmentTransmis = null;
-
-        // et on navigue vers la page d'accueil qui affiche la liste
-        this.router.navigate(['/home']);
-      });
+    console.log(this.assignmentTransmis)
   }
 
   onClickEdit() {

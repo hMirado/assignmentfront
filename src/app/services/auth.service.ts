@@ -39,14 +39,6 @@ export class AuthService {
         return !helper.isTokenExpired(token);
     }
 
-    // exemple d'utilisation :
-    // isAdmin.then(admin => { console.log("administrateur : " + admin);})
-    isAdmin() {
-        return new Promise((resolve, reject) => {
-            resolve(this.admin);
-        });
-    }
-
     signOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
