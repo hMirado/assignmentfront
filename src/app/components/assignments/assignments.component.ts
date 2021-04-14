@@ -91,17 +91,6 @@ export class AssignmentsComponent implements OnInit {
                 this.nextPageNonRendu = data.nextPage;
             });
     }
-
-    onDeleteAssignment(id) {
-        console.log(id)
-        this.assignmentsService
-            .deleteAssignment(id)
-            .subscribe((reponse) => {
-                console.log(reponse.message);
-                this.router.navigate(['/home']);
-            });
-    }
-
     premierePage(rendu: boolean) {
         if (rendu) {            
             this.router.navigate(['/home'], {

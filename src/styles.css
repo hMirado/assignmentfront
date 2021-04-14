@@ -227,3 +227,9 @@ button.toast-close-button {
         width: 25em;
     }
 }
+
+.global-card{
+    background-color:#3f51b5 !important;
+    padding:15px !important;
+    color: #f7f7f7;
+}

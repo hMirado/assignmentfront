@@ -16,77 +16,109 @@
     Ajouter un devoir
   </button>
 </form>-->
+<div class="main-content mt-1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <mat-card-header class="card-header global-card">
+                        <mat-card-title class="card-title ">Ajout d'un nouvel assignment</mat-card-title>
+                    </mat-card-header>
+                    <mat-card class="mt-3">
+                        <mat-card-content>
+                            <mat-horizontal-stepper [linear]="true" #stepper>
+                                <mat-step [stepControl]="firstFormGroup">
+                                    <form [formGroup]="firstFormGroup" class="form">
+                                        <ng-template matStepLabel>Informations sur l'assignment</ng-template>
+                                        <mat-form-field>
+                                            <input matInput placeholder="Nom du devoir" required formControlName="nom"
+                                                   name="nom">
+                                        </mat-form-field>
+                                        <mat-form-field>
+                                            <input matInput placeholder="Nom de la matière" required
+                                                   formControlName="matiere" name="matiere">
+                                        </mat-form-field>
 
-<mat-horizontal-stepper [linear]="true" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup" class="form">
-      <ng-template matStepLabel>Informations sur l'assignment</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Nom du devoir" required formControlName="nom" name="nom">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Nom de la matière" required formControlName="matiere" name="matiere">
-      </mat-form-field>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Choisissez une date</mat-label>
+                                            <input matInput [matDatepicker]="picker" required formControlName="date"
+                                                   name="date">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                        <div>
+                                            <button mat-raised-button matStepperNext color="primary">Etape suivante
+                                            </button>
+                                        </div>
+                                    </form>
+                                </mat-step>
+                                <mat-step [stepControl]="secondFormGroup" label="Etudiant et professeur">
+                                    <form [formGroup]="secondFormGroup" class="form">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Professeur</mat-label>
+                                            <mat-select formControlName="professeurSelect">
+                                                <mat-option *ngFor="let professeur of listProfesseurs; let i = index"
+                                                            [value]="i">
+                                                    {{professeur.fName + " " + professeur.lName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Choisissez une date</mat-label>
-        <input matInput [matDatepicker]="picker" required formControlName="date" name="date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <div>
-        <button mat-raised-button matStepperNext color="primary">Etape suivante</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Etudiant et professeur">
-    <form [formGroup]="secondFormGroup" class="form">
-      <mat-form-field appearance="fill">
-        <mat-label>Professeur</mat-label>
-        <mat-select formControlName="professeurSelect">
-          <mat-option *ngFor="let professeur of listProfesseurs; let i = index" [value]="i">
-            {{professeur.fName + " " + professeur.lName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Etudiant</mat-label>
-        <mat-select formControlName="etudiantSelect">
-          <mat-option *ngFor="let etudiant of listEtudiants; let i = index" [value]="i">
-            {{etudiant.fName + " " + etudiant.lName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div>
-        <button mat-raised-button color="accent" matStepperPrevious>Etape précédente</button>
-        <button mat-raised-button color="primary" matStepperNext style="margin-left: 5px;">Etape suivante</button>
-      </div>
-    </form>
-  </mat-step>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Etudiant</mat-label>
+                                            <mat-select formControlName="etudiantSelect">
+                                                <mat-option *ngFor="let etudiant of listEtudiants; let i = index"
+                                                            [value]="i">
+                                                    {{etudiant.fName + " " + etudiant.lName }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <div>
+                                            <button mat-raised-button color="accent" matStepperPrevious>Etape
+                                                précédente
+                                            </button>
+                                            <button mat-raised-button color="primary" matStepperNext
+                                                    style="margin-left: 5px;">Etape suivante
+                                            </button>
+                                        </div>
+                                    </form>
+                                </mat-step>
 
 
-  <mat-step [stepControl]="thirdFormGroup" label="Validation">
-    <form [formGroup]="thirdFormGroup" class="form">
-     
-<mat-checkbox formControlName="rendu" (click)="onRendu()">Rendu</mat-checkbox>
-      <mat-form-field [hidden]="isRendu">
-        <input matInput placeholder="Note" required formControlName="note" name="note" type="number" min="0" max="20"
-          value="0">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Remarque</mat-label>
-        <textarea matInput formControlName="remarque"></textarea>
-      </mat-form-field>
-      
-     
-     <div>
-        <button mat-raised-button color="accent" matStepperPrevious>Etape précédente</button>
-        <button mat-raised-button color="primary" style="margin-left: 5px;" (click)="stepper.reset()">Annuler</button>
-        <button mat-raised-button color="primary" style="margin-left: 5px;"
-          (click)="onEnregistrerEssignment()">Enregistrer</button>
-      </div>
-    </form>
-  </mat-step>
+                                <mat-step [stepControl]="thirdFormGroup" label="Validation">
+                                    <form [formGroup]="thirdFormGroup" class="form">
 
-</mat-horizontal-stepper>
+                                        <mat-checkbox formControlName="rendu" (click)="onRendu()">Rendu</mat-checkbox>
+                                        <mat-form-field [hidden]="isRendu">
+                                            <input matInput placeholder="Note" required formControlName="note"
+                                                   name="note" type="number" min="0" max="20"
+                                                   value="0">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Remarque</mat-label>
+                                            <textarea matInput formControlName="remarque"></textarea>
+                                        </mat-form-field>
+
+
+                                        <div>
+                                            <button mat-raised-button color="accent" matStepperPrevious>Etape
+                                                précédente
+                                            </button>
+                                            <button mat-raised-button color="primary" style="margin-left: 5px;"
+                                                    (click)="stepper.reset()">Annuler
+                                            </button>
+                                            <button mat-raised-button color="primary" style="margin-left: 5px;"
+                                                    (click)="onEnregistrerEssignment()">Enregistrer
+                                            </button>
+                                        </div>
+                                    </form>
+                                </mat-step>
+
+                            </mat-horizontal-stepper>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

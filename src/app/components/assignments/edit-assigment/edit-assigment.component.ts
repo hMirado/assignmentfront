@@ -45,6 +45,7 @@ export class EditAssigmentComponent implements OnInit {
 
       this.nom = assignment.nom;
       this.dateDeRendu = assignment.dateDeRendu;
+      this.isRendu = assignment.rendu;
     });
   }
 

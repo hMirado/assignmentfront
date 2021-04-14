@@ -12,8 +12,8 @@ export class AuthService {
     authToken = false;
     user;
 
-    uri = "http://localhost:8010/api/authentication";
-   // uri = "https://backmadagascar2021.herokuapp.com/api/authentication"
+    //uri = "http://localhost:8010/api/authentication";
+    uri = "https://backmadagascar2021.herokuapp.com/api/authentication";
 
     constructor(private http: HttpClient) {
     }

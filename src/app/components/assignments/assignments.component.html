@@ -14,34 +14,31 @@
                             <div class="row">
                                 <div class="col-4 mt-1" *ngFor="let a of assignmentsRendu">
                                     <mat-card>
-                                        <mat-card-header>
-                                            <img mat-card-avatar src="{{a.image}}" class="example-header-image">
-                                            <mat-card-title>{{a.professeur.fName}} {{a.professeur.lName}}</mat-card-title>
-                                            <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
-                                        </mat-card-header>
+                                        <a routerLink="/assignment/{{a.id}}" style="text-decoration: none;">
+                                            <mat-card-header>
+                                                <img mat-card-avatar src="{{a.image}}" class="example-header-image">
+                                                <mat-card-title>{{a.professeur.fName}} {{a.professeur.lName}}</mat-card-title>
+                                                <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
+                                            </mat-card-header>
+                                        </a>
                                         <mat-card-content>
                                             <mat-grid-list cols="2" rowHeight="3:1">
                                                 <mat-grid-tile>Etat :</mat-grid-tile>
-                                                <mat-grid-tile *ngIf="a.rendu; else nonsoumis" appRendu>REMIS, note: {{a.note}}/20
+                                                <mat-grid-tile *ngIf="a.rendu; else nonsoumis" appRendu>REMIS
                                                 </mat-grid-tile>
                                                 <ng-template #nonsoumis>
                                                     <mat-grid-tile appNonRendu>NON REMI</mat-grid-tile>
+                                                </ng-template>
+                                                <mat-grid-tile>Note :</mat-grid-tile>
+                                                <mat-grid-tile *ngIf="a.rendu; else sansNote">{{a.note}} / 20
+                                                </mat-grid-tile>
+                                                <ng-template #sansNote>
+                                                    <mat-grid-tile>0 / 20</mat-grid-tile>
                                                 </ng-template>
                                                 <mat-grid-tile>Date :</mat-grid-tile>
                                                 <mat-grid-tile class="text-left">{{a.dateDeRendu | date}}</mat-grid-tile>
                                             </mat-grid-list>
                                         </mat-card-content>
-                                        <mat-card-actions>
-                                            <button mat-icon-button class="mr-1" color="primary" routerLink="/assignment/{{a.id}}" aria-label="DETAIL">
-                                                <mat-icon class="material-icons-outlined">visibility</mat-icon>
-                                            </button>
-                                            <button *ngIf="isAuthorized" mat-icon-button class="mr-1 gren-icon" routerLink="/assignment/{{a.id}}/edit" aria-label="MODIFIER">
-                                                <mat-icon class="material-icons-outlined">edit</mat-icon>
-                                            </button>
-                                            <button *ngIf="isAuthorized" mat-icon-button color="warn" aria-label="SUPPRIMER" (click)="onDeleteAssignment(a.id)">
-                                                <mat-icon class="material-icons-outlined">delete</mat-icon>
-                                            </button>
-                                        </mat-card-actions>
                                     </mat-card>
                                 </div>
                             </div>
@@ -75,11 +72,13 @@
                             <div class="row">
                                 <div class="col-4 mt-1" *ngFor="let a of assignmentsNonRendu">
                                     <mat-card>
-                                        <mat-card-header>
-                                            <img mat-card-avatar src="{{a.image}}" class="example-header-image">
-                                            <mat-card-title>{{a.professeur.fName}} {{a.professeur.lName}}</mat-card-title>
-                                            <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
-                                        </mat-card-header>
+                                        <a routerLink="/assignment/{{a.id}}" style="text-decoration: none;">
+                                            <mat-card-header>
+                                                <img mat-card-avatar src="{{a.image}}" class="example-header-image">
+                                                <mat-card-title>{{a.professeur.fName}} {{a.professeur.lName}}</mat-card-title>
+                                                <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
+                                            </mat-card-header>
+                                        </a>
                                         <mat-card-content>
                                             <mat-grid-list cols="2" rowHeight="3:1">
                                                 <mat-grid-tile>Etat :</mat-grid-tile>
@@ -91,21 +90,16 @@
                                                         NON REMIS
                                                     </mat-grid-tile>
                                                 </ng-template>
+                                                <mat-grid-tile>Note :</mat-grid-tile>
+                                                <mat-grid-tile *ngIf="a.rendu; else sansNote">{{a.note}} / 20
+                                                </mat-grid-tile>
+                                                <ng-template #sansNote>
+                                                    <mat-grid-tile>0 / 20</mat-grid-tile>
+                                                </ng-template>
                                                 <mat-grid-tile>Date :</mat-grid-tile>
-                                                <mat-grid-tile class="text-left">{{a.dateDeRendu}}</mat-grid-tile>
+                                                <mat-grid-tile class="text-left">{{a.dateDeRendu | date}}</mat-grid-tile>
                                             </mat-grid-list>
                                         </mat-card-content>
-                                        <mat-card-actions>
-                                            <button mat-icon-button class="mr-1" color="primary" routerLink="/assignment/{{a.id}}" aria-label="DETAIL">
-                                                <mat-icon class="material-icons-outlined">visibility</mat-icon>
-                                            </button>
-                                            <button *ngIf="isAuthorized" mat-icon-button class="mr-1 gren-icon" routerLink="/assignment/{{a.id}}/edit" aria-label="MODIFIER">
-                                                <mat-icon class="material-icons-outlined">edit</mat-icon>
-                                            </button>
-                                            <button *ngIf="isAuthorized" mat-icon-button class="mr-1" color="warn" aria-label="SUPPRIMER" (click)="onDeleteAssignment(a.id)">
-                                                <mat-icon class="material-icons-outlined">delete</mat-icon>
-                                            </button>
-                                        </mat-card-actions>
                                     </mat-card>
                                 </div>
                             </div>
