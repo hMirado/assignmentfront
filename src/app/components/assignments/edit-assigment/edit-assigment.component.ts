@@ -14,6 +14,8 @@ export class EditAssigmentComponent implements OnInit {
   // pour le formulaire
   nom = "";
   dateDeRendu = null;
+  note:number;
+  isRendu:boolean =false;
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -49,10 +51,17 @@ export class EditAssigmentComponent implements OnInit {
 
   onSubmit(event) {
     // on va modifier l'assignment
-    if((!this.nom) || (!this.dateDeRendu)) return;
+    
+    if(this.isRendu){
+      if((!this.nom) || (!this.dateDeRendu) || (!this.note))return;
+    }else{
+      if((!this.nom) || (!this.dateDeRendu))return;
+    }
 
     this.assignment.nom = this.nom;
     this.assignment.dateDeRendu = this.dateDeRendu;
+    this.assignment.rendu = this.isRendu;
+    this.assignment.note = this.note;
 
     this.assignmentsService.updateAssignment(this.assignment)
       .subscribe(message => {
@@ -62,5 +71,13 @@ export class EditAssigmentComponent implements OnInit {
         this.router.navigate(["/home"]);
       })
 
+  }
+
+  onAssignmentRendu(){
+      if(this.isRendu){
+        this.isRendu = false;
+      }else{
+        this.isRendu = true;
+      }
   }
 }
