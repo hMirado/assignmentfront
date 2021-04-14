@@ -22,13 +22,13 @@
                                         <mat-card-content>
                                             <mat-grid-list cols="2" rowHeight="3:1">
                                                 <mat-grid-tile>Etat :</mat-grid-tile>
-                                                <mat-grid-tile *ngIf="a.rendu; else nonsoumis" appRendu>REMIS
+                                                <mat-grid-tile *ngIf="a.rendu; else nonsoumis" appRendu>REMIS, note: {{a.note}}/20
                                                 </mat-grid-tile>
                                                 <ng-template #nonsoumis>
                                                     <mat-grid-tile appNonRendu>NON REMI</mat-grid-tile>
                                                 </ng-template>
                                                 <mat-grid-tile>Date :</mat-grid-tile>
-                                                <mat-grid-tile class="text-left">{{a.dateDeRendu}}</mat-grid-tile>
+                                                <mat-grid-tile class="text-left">{{a.dateDeRendu | date}}</mat-grid-tile>
                                             </mat-grid-list>
                                         </mat-card-content>
                                     </mat-card>

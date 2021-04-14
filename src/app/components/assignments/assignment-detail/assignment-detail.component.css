@@ -7,3 +7,25 @@
   justify-content: space-between;
   align-items: flex-end;
 }
+
+
+
+.column {
+  float: left;
+  padding: 10px;
+  height: 300px;
+}
+
+.left {
+  width: 25%;
+}
+
+.right {
+  width: 75%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
