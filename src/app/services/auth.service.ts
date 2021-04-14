@@ -12,8 +12,8 @@ export class AuthService {
     authToken = false;
     user;
 
-    uri = "http://localhost:8010/api/authentication";
-   // uri = "https://backmadagascar2021.herokuapp.com/api/authentication"
+    //uri = "http://localhost:8010/api/authentication";
+    uri = "https://backmadagascar2021.herokuapp.com/api/authentication";
 
     constructor(private http: HttpClient) {
     }
@@ -37,14 +37,6 @@ export class AuthService {
         var token = localStorage.getItem('token');
         const helper = new JwtHelperService();
         return !helper.isTokenExpired(token);
-    }
-
-    // exemple d'utilisation :
-    // isAdmin.then(admin => { console.log("administrateur : " + admin);})
-    isAdmin() {
-        return new Promise((resolve, reject) => {
-            resolve(this.admin);
-        });
     }
 
     signOut() {

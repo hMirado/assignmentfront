@@ -15,9 +15,8 @@ export class AppComponent {
   userToken: boolean = false;
 
   @ViewChild(MatSidenav) sidenav: MatSidenav;
-  opened: boolean = true;
 
-  constructor(private authService:AuthService,
+  constructor(public authService:AuthService,
               private router:Router,
               private assignmentsService:AssignmentsService,
               private toastrService: ToastrService) {}

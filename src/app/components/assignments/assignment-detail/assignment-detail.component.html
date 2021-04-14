@@ -1,24 +1,40 @@
-<div class="container">
-  <mat-card *ngIf="assignmentTransmis">
+<div class="container-fluid">
     <div class="row">
-      <div class="column left">
-        <img src="{{assignmentTransmis.image}}" class="example-header-image">
-      </div>
-      <div class="column right">
-        <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-        <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
-        <p>Matière: {{ assignmentTransmis.matiere }}</p>
-        <p>Professeur: {{ assignmentTransmis.professeur.fName + " "+ assignmentTransmis.professeur.lName}}</p>
-        <p>Etudiant: {{ assignmentTransmis.auteur.fName + " "+ assignmentTransmis.auteur.lName}}</p>
-      </div>
-    </div>
+        <div class="col-md-12 mt-1" *ngIf="assignmentTransmis">
+            <div>
+                <mat-card-header class="card-header global-card">
+                    <mat-card-title class="card-title ">Detail de l'assignments
+                        : {{assignmentTransmis.nom}}</mat-card-title>
+                </mat-card-header>
+                <mat-card class="mt-3">
+                    <div class="row">
+                        <div class="column left">
+                            <img src="{{assignmentTransmis.image}}" class="example-header-image">
+                        </div>
+                        <div class="column right">
+                            <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
+                            <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
+                            <p>Matière: {{ assignmentTransmis.matiere }}</p>
+                            <p>
+                                Professeur: {{ assignmentTransmis.professeur.fName + " " + assignmentTransmis.professeur.lName}}</p>
+                            <p>
+                                Etudiant: {{ assignmentTransmis.auteur.fName + " " + assignmentTransmis.auteur.lName}}</p>
+                        </div>
+                    </div>
 
 
-    <div id="bottom">      
-      <nav>
-        <button [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onClickEdit()">EDIT</button>
-      </nav>
-      <button mat-stroked-button color="warn" (click)="onDelete()">DELETE</button>
+                    <div id="bottom">
+                        <nav>
+                            <button [disabled]="!isAuthorized" mat-stroked-button color="primary"
+                                    (click)="onClickEdit()">
+                                EDIT
+                            </button>
+                        </nav>
+                        <button [disabled]="!isAuthorized" mat-stroked-button color="warn" (click)="onDelete()">DELETE
+                        </button>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
     </div>
-  </mat-card>
 </div>

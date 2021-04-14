@@ -12,6 +12,7 @@ import { Assignment } from '../assignment.model';
 export class AssignmentDetailComponent implements OnInit {
   // passé sous forme d'attribut HTML
   assignmentTransmis: Assignment;
+  isAuthorized: boolean = false;
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -22,6 +23,10 @@ export class AssignmentDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAssignmentById();
+    var role = localStorage.getItem('user');
+    if(JSON.parse(role).role === 'admin' || JSON.parse(role).role === 'professeur') {
+      this.isAuthorized = true;
+    }
   }
 
   getAssignmentById() {
@@ -50,17 +55,7 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   onDelete() {
-    this.assignmentsService
-      .deleteAssignment(this.assignmentTransmis)
-      .subscribe((reponse) => {
-        console.log(reponse.message);
-
-        // on cache l'affichage du détail
-        this.assignmentTransmis = null;
-
-        // et on navigue vers la page d'accueil qui affiche la liste
-        this.router.navigate(['/home']);
-      });
+    console.log(this.assignmentTransmis)
   }
 
   onClickEdit() {

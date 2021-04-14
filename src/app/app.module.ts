@@ -38,7 +38,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 
-import {RoleGuard} from "./guards/role.guard";
 import {AuthGuard} from './guards/auth.guard';
 import {AuthService} from "./services/auth.service";
 import {UsersService} from "./services/users.service";
@@ -64,7 +63,7 @@ const routes: Routes = [
     {
         path: "assignment/:id",
         component: AssignmentDetailComponent,
-        canActivate: [AuthGuard, RoleGuard]
+        canActivate: [AuthGuard]
     },
     {
         path: "assignment/:id/edit",
@@ -128,7 +127,7 @@ const routes: Routes = [
         MatStepperModule,
         
     ],
-    providers: [RoleGuard, AuthGuard, AuthService, UsersService],
+    providers: [AuthGuard, AuthService, UsersService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
