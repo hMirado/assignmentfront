@@ -18,8 +18,3 @@ https://stackoverflow.com/questions/53845015/multiple-angular-material-table-in-
 
 #### Toastr message
 https://www.npmjs.com/package/ngx-toastr
-
-#
-
-### Peupled DB
-Clicker sur le bouton du menu "peupled DB" pour peupler la base de données.
