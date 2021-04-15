@@ -55,11 +55,6 @@ export class AssignmentsComponent implements OnInit {
             this.getAssignmentsRendu();
             this.getAssignmentsNonRendu();
         });
-
-        var role = localStorage.getItem('user');
-        if(JSON.parse(role).role === 'admin' || JSON.parse(role).role === 'professeur') {
-            this.isAuthorized = true;
-        }
     }
 
     getAssignmentsRendu() {

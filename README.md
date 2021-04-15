@@ -5,6 +5,12 @@
 
 #
 
+### Compte admin pour se connecter
+##### Email : admin@domain.fr
+##### Mots de passe : Password1234!
+
+#
+
 ### Design
 - Angular Material : https://material.angular.io/
 - Ng Bootstrap : https://ng-bootstrap.github.io/
