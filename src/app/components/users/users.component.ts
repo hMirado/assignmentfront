@@ -13,8 +13,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
     profsLength: number = 0;
     etudiantsLength: number = 0;
 
-    displayedColumns = ['fName', 'lName', 'email', 'id'];
-    displayedColumnsEtu = ['fName', 'lName', 'email', 'id'];
+    displayedColumns = ['image', 'fName', 'lName', 'email', 'role'];
+    displayedColumnsEtu = ['image', 'fName', 'lName', 'email', 'role'];
     dataSource = new MatTableDataSource<object>([]);
     dataSourceEtu = new MatTableDataSource<object>([]);
 

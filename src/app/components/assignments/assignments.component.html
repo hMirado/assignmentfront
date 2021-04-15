@@ -19,7 +19,11 @@
                                     <mat-card>
                                         <a routerLink="/assignment/{{a.id}}" style="text-decoration: none;">
                                             <mat-card-header>
-                                                <img mat-card-avatar src="{{a.image}}" class="example-header-image">
+                                                <img *ngIf="a.professeur.image; else snsImg" mat-card-avatar src="{{a.professeur.image}}" class="example-header-image">
+                                                <ng-template #snsImg>
+                                                    <img mat-card-avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU"
+                                                         class="example-header-image"  alt="Photo de l'utilisateur">
+                                                </ng-template>
                                                 <mat-card-title>{{a.nom}}</mat-card-title>
                                                 <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
                                             </mat-card-header>

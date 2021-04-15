@@ -20,7 +20,7 @@ export class AssignmentsService {
 
   getAssignments():Observable<Assignment[]> {
     console.log("Dans le service de gestion des assignments...");
-    //return of(this.assignments);
+
     return this.http.get<Assignment[]>(this.uri);
   }
 

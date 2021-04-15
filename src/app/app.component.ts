@@ -4,6 +4,7 @@ import { AssignmentsService } from './services/assignments.service';
 import { AuthService } from './services/auth.service';
 import {MatSidenav} from "@angular/material/sidenav";
 import {ToastrService} from "ngx-toastr";
+import {UsersService} from "./services/users.service";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
   constructor(public authService:AuthService,
               private router:Router,
               private assignmentsService:AssignmentsService,
-              private toastrService: ToastrService) {}
+              private toastrService: ToastrService,
+              private usersService:UsersService) {}
 
   /*
   login() {
@@ -50,6 +52,20 @@ export class AppComponent {
       })
   }
   */
+
+
+  onPeuplerAssignment(){
+    this.usersService.getUsersPagine("professeur").subscribe(professeurs => {
+      const listProfesseur = professeurs;
+      this.usersService.getUsersPagine("etudiant").subscribe(etudiants => {
+        const listEtudiant = etudiants;
+        this.assignmentsService.peuplerBDAvecForkJoin(listProfesseur, listEtudiant).subscribe(Response => {
+          console.log("base de donnée peuplée");
+        });
+      });
+    })
+  }
+
   onLogout() {
     this.userToken = false;
     this.authService.signOut();

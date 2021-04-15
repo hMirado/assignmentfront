@@ -41,7 +41,6 @@ import {ToastrModule} from 'ngx-toastr';
 import {AuthGuard} from './guards/auth.guard';
 import {AuthService} from "./services/auth.service";
 import {UsersService} from "./services/users.service";
-import {EditUserComponent} from "./components/users/edit-user/edit-user.component";
 
 
 const routes: Routes = [
@@ -79,11 +78,6 @@ const routes: Routes = [
         path: "add-user",
         component: AddUserComponent,
         canActivate: [AuthGuard]
-    },
-    {
-        path: "user/:id/edit",
-        component: EditUserComponent,
-        canActivate: [AuthGuard]
     }
 ]
 
@@ -98,8 +92,7 @@ const routes: Routes = [
         EditAssigmentComponent,
         LoginComponent,
         UsersComponent,
-        AddUserComponent,
-        EditUserComponent
+        AddUserComponent
     ],
     imports: [
         BrowserModule,

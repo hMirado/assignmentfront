@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from "../../../services/users.service";
 import {ToastrService} from "ngx-toastr";
 import {User} from "../../../shared/user.model";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-user-form',
@@ -20,14 +21,11 @@ export class AddUserComponent implements OnInit {
     role = '';
 
     constructor(public userService: UsersService,
-                private toastrService: ToastrService) {
+                private toastrService: ToastrService,
+                private router:Router) {
     }
 
     ngOnInit(): void {
-    }
-
-    generateId() {
-        return Math.round(Math.random()*10000);
     }
 
     onSubmit(event) {
@@ -48,15 +46,11 @@ export class AddUserComponent implements OnInit {
             return;
         }
 
-        let roleCourt = (this.role === 'professeur') ? 'prof' : (this.role === 'etudiant') ? 'etu' : 'admin';
-        var id = roleCourt + "0000" + (this.generateId()+1).toString().slice(-5);
-
         let nouvelUser = new User();
         nouvelUser.lName = this.lName;
         nouvelUser.fName = this.fName;
         nouvelUser.email = this.email;
         nouvelUser.password = this.password;
-        nouvelUser.id = id;
         nouvelUser.image = this.image;
         nouvelUser.role = this.role;
 
@@ -64,6 +58,7 @@ export class AddUserComponent implements OnInit {
             this.toastrService.clear();
             this.toastrService.success(res.message);
             this.formReset();
+            this.router.navigate(["/user"]);
         }, error => {
             this.toastrService.clear();
             this.toastrService.error(error);

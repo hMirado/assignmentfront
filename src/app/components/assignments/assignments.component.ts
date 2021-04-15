@@ -184,7 +184,7 @@ export class AssignmentsComponent implements OnInit {
 
     }
 
-    onPeuplerAssignment(){
+    peuplerAssignmnents(){
         this.usersService.getUsersPagine("professeur").subscribe(professeurs => {
             const listProfesseur = professeurs;
             this.usersService.getUsersPagine("etudiant").subscribe(etudiants => {
