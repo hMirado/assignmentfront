@@ -15,6 +15,8 @@ export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis: Assignment;
   isAuthorized: boolean = false;
 
+  isProfAssignment: boolean = false
+
   constructor(
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
@@ -26,7 +28,7 @@ export class AssignmentDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getAssignmentById();
     var role = localStorage.getItem('user');
-    if(JSON.parse(role).role === 'admin' || JSON.parse(role).role === 'professeur') {
+    if(JSON.parse(role).role === 'admin') {
       this.isAuthorized = true;
     }
   }

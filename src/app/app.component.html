@@ -49,7 +49,7 @@
                                 </button>
                             </a>
                          </span>
-                        <span class="side-mnu">
+                        <span *ngIf="isAuthorized" class="side-mnu">
                             <a routerLink="/add-user" class="d-flex flex-row bd-highlight mt-2 mb-2">
                                 <button mat-button>
                                     <mat-icon>person_add</mat-icon>

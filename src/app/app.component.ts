@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { AssignmentsService } from './services/assignments.service';
 import { AuthService } from './services/auth.service';
@@ -11,9 +11,10 @@ import {UsersService} from "./services/users.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "Application de gestion des assignments";
   userToken: boolean = false;
+  isAuthorized: boolean = false;
 
   @ViewChild(MatSidenav) sidenav: MatSidenav;
 
@@ -23,23 +24,14 @@ export class AppComponent {
               private toastrService: ToastrService,
               private usersService:UsersService) {}
 
-  /*
-  login() {
-    // si je suis pas loggé, je me loggue, sinon, si je suis
-    // loggé je me déloggue et j'affiche la page d'accueil
 
-    if(this.authService.loggedIn) {
-      // je suis loggé
-      // et bien on se déloggue
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(["/home"]);
-    } else {
-      // je ne suis pas loggé, je me loggue
-      this.authService.logIn("admin", "toto");
+  ngOnInit(): void {
+    var role = localStorage.getItem('user');
+    if(JSON.parse(role).role === 'admin') {
+      this.isAuthorized = true;
     }
   }
-
+  /*
   peuplerBD() {
     // version naive et simple
     //this.assignmentsService.peuplerBD();
