@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AssignmentsService } from 'src/app/services/assignments.service';
 import { Assignment } from '../assignment.model';
 
@@ -16,11 +17,13 @@ export class EditAssigmentComponent implements OnInit {
   dateDeRendu = null;
   note:number;
   isRendu:boolean =false;
+  isAffichageModificationNote:boolean;
 
   constructor(
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class EditAssigmentComponent implements OnInit {
       this.nom = assignment.nom;
       this.dateDeRendu = assignment.dateDeRendu;
       this.isRendu = assignment.rendu;
+      this.isAffichageModificationNote = assignment.rendu;
     });
   }
 
@@ -53,11 +57,15 @@ export class EditAssigmentComponent implements OnInit {
   onSubmit(event) {
     // on va modifier l'assignment
     
-    if(this.isRendu){
-      if((!this.nom) || (!this.dateDeRendu) || (!this.note))return;
+    if(!this.isAffichageModificationNote){
+      if(this.isRendu){
+        if((!this.nom) || (!this.dateDeRendu) || (!this.note))return;
+      }else{
+        if((!this.nom) || (!this.dateDeRendu))return;
+      }
     }else{
       if((!this.nom) || (!this.dateDeRendu))return;
-    }
+    }    
 
     this.assignment.nom = this.nom;
     this.assignment.dateDeRendu = this.dateDeRendu;
@@ -67,7 +75,7 @@ export class EditAssigmentComponent implements OnInit {
     this.assignmentsService.updateAssignment(this.assignment)
       .subscribe(message => {
         console.log(message);
-
+        this.toastr.success("L'assignment a été modifié.")
         // et on navigue vers la page d'accueil
         this.router.navigate(["/home"]);
       })

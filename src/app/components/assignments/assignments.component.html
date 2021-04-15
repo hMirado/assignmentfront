@@ -4,8 +4,11 @@
             <div class="col-md-12">
                 <div>
                     <mat-card-header class="card-header global-card">
-                        <mat-card-title class="card-title ">Liste des assignments</mat-card-title>
+                        <mat-card-title class="card-title ">Liste des assignments</mat-card-title>                        
                     </mat-card-header>
+                   <!--
+<button mat-stroked-button color="primary" (click)="onPeuplerAssignment()">peuplerAssignmentBD</button>
+                   --> 
                     <mat-tab-group>
                         <mat-tab>
                             <ng-template mat-tab-label>
@@ -75,7 +78,7 @@
                                         <a routerLink="/assignment/{{a.id}}" style="text-decoration: none;">
                                             <mat-card-header>
                                                 <img mat-card-avatar src="{{a.image}}" class="example-header-image">
-                                                <mat-card-title>{{a.professeur.fName}} {{a.professeur.lName}}</mat-card-title>
+                                               <mat-card-title>{{a.auteur.role}}</mat-card-title> 
                                                 <mat-card-subtitle>{{a.matiere}}</mat-card-subtitle>
                                             </mat-card-header>
                                         </a>

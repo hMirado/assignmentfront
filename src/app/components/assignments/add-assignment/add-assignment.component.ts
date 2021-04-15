@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AssignmentsService } from 'src/app/services/assignments.service';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/shared/user.model';
@@ -26,7 +27,10 @@ export class AddAssignmentComponent implements OnInit {
   isRendu:boolean = true;
 
   constructor(private assignmentsService:AssignmentsService,
-              private router:Router,private _formBuilder: FormBuilder,private userServices:UsersService) {}
+              private router:Router,
+              private _formBuilder: FormBuilder,
+              private userServices:UsersService,
+               private toastrService:ToastrService) {}
 
   ngOnInit(): void {
 
@@ -86,6 +90,7 @@ export class AddAssignmentComponent implements OnInit {
       nouvelAssignment.matiere = informationAssignments.matiere;
       nouvelAssignment.professeur = this.listProfesseurs[professeurEtEtudiant.professeurSelect];
       nouvelAssignment.auteur = this.listEtudiants[professeurEtEtudiant.etudiantSelect];
+      nouvelAssignment.image = "http://dummyimage.com/200x200.png/ff4444/ffffff";
       if(validation.rendu){
         nouvelAssignment.rendu = true;
         if(validation.note != null){
@@ -102,6 +107,7 @@ export class AddAssignmentComponent implements OnInit {
       this.assignmentsService.addAssignment(nouvelAssignment)
       .subscribe(response =>{
         console.log(response.message);
+        this.toastrService.success("L'assignment a été ajouté.");
         // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(["/home"]);
       });
