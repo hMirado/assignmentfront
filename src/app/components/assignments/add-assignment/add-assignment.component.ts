@@ -87,7 +87,7 @@ export class AddAssignmentComponent implements OnInit {
       let nouvelAssignment = new Assignment();
       nouvelAssignment.nom = informationAssignments.nom;
       nouvelAssignment.dateDeRendu = informationAssignments.date;
-      nouvelAssignment.matiere = informationAssignments.matieres;
+      nouvelAssignment.matiere = informationAssignments.matiere;
       nouvelAssignment.professeur = this.listProfesseurs[professeurEtEtudiant.professeurSelect];
       nouvelAssignment.auteur = this.listEtudiants[professeurEtEtudiant.etudiantSelect];
       nouvelAssignment.image = "http://dummyimage.com/200x200.png/ff4444/ffffff";
@@ -108,7 +108,6 @@ export class AddAssignmentComponent implements OnInit {
       .subscribe(response =>{
         console.log(response.message);
         this.toastrService.success("L'assignment a été ajouté.");
-        // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(["/home"]);
       });
 
