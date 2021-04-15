@@ -21,19 +21,21 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
 
-              <mat-checkbox *ngIf="isRendu; else nonRendu" [checked]=isRendu (click)="onAssignmentRendu()">
-                Rendu
-              </mat-checkbox>
-              <ng-template #nonRendu>
-                <mat-checkbox [checked]=isRendu (click)="onAssignmentRendu()">
+              <spam *ngIf="!isAffichageModificationNote">
+                <mat-checkbox *ngIf="isRendu; else nonRendu" [checked]=isRendu (click)="onAssignmentRendu()">
                   Rendu
                 </mat-checkbox>
-              </ng-template>
-
-              <mat-form-field [hidden]="!isRendu">
-                <input matInput placeholder="note" required type="number" [(ngModel)]="note" name="note" min="0" max="20">
-              </mat-form-field>
-
+                <ng-template #nonRendu>
+                  <mat-checkbox [checked]=isRendu (click)="onAssignmentRendu()">
+                    Rendu
+                  </mat-checkbox>
+                </ng-template>
+                <br>
+                <mat-form-field [hidden]="!isRendu">
+                  <input matInput placeholder="note" required type="number" [(ngModel)]="note" name="note" min="0" max="20">
+                </mat-form-field>  
+              </spam>
+              
               <button mat-stroked-button color="primary">
                 Modifier le devoir
               </button>

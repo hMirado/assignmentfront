@@ -27,7 +27,7 @@
                             <a routerLink="/" class="d-flex flex-row bd-highlight mt-2 mb-2">
                                 <button mat-button>
                                     <mat-icon>home</mat-icon>
-                                    Accueil
+                                    Accueil / Assignments
                                 </button>
                             </a>
                          </span>
@@ -39,14 +39,25 @@
                                 </button>
                             </a>
                          </span>
+
+                        <mat-divider></mat-divider>
                         <span class="side-mnu">
                             <a routerLink="/user" class="d-flex flex-row bd-highlight mt-2 mb-2">
                                 <button mat-button>
                                     <mat-icon>account_box</mat-icon>
-                                    Utilisateur
+                                    Liste des utilisateurs
                                 </button>
                             </a>
                          </span>
+                        <span class="side-mnu">
+                            <a routerLink="/add-user" class="d-flex flex-row bd-highlight mt-2 mb-2">
+                                <button mat-button>
+                                    <mat-icon>person_add</mat-icon>
+                                    Ajouter un utilisateur
+                                </button>
+                            </a>
+                         </span>
+                        <mat-divider></mat-divider>
                         <span class="side-mnu">
                             <a (click)="onLogout()" class="d-flex flex-row bd-highlight mt-2 mb-2">
                                 <button mat-button>

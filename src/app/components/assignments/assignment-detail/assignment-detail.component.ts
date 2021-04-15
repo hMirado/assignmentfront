@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AssignmentsService } from 'src/app/services/assignments.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Assignment } from '../assignment.model';
@@ -18,7 +19,8 @@ export class AssignmentDetailComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService:AuthService
+    private authService:AuthService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,11 @@ export class AssignmentDetailComponent implements OnInit {
 
   onDelete() {
     console.log(this.assignmentTransmis)
+    this.assignmentsService.deleteAssignment(this.assignmentTransmis)
+      .subscribe((reponse)=> {
+        this.toastrService.success("Assignment supprimé.");
+        this.router.navigate(['/home']);
+      });
   }
 
   onClickEdit() {

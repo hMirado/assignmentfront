@@ -13,8 +13,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
     profsLength: number = 0;
     etudiantsLength: number = 0;
 
-    displayedColumns = ['fName', 'lName', 'email', 'id'];
-    displayedColumnsEtu = ['fName', 'lName', 'email', 'id'];
+    displayedColumns = ['image', 'fName', 'lName', 'email', 'role'];
+    displayedColumnsEtu = ['image', 'fName', 'lName', 'email', 'role'];
     dataSource = new MatTableDataSource<object>([]);
     dataSourceEtu = new MatTableDataSource<object>([]);
 
@@ -66,5 +66,13 @@ export class UsersComponent implements OnInit, AfterViewInit {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSourceEtu.filter = filterValue.trim();
         this.dataSourceEtu.filter = filterValue.toLocaleLowerCase();
+    }
+
+    peuplerUserBD() {
+        this.usersService.peuplerBDAvecForkJoin()
+            .subscribe(() => {
+                console.log("LA BD A ETE PEUPLEE, TOUS LES USERS AJOUTES, ON RE-AFFICHE LA LISTE");
+                this.router.navigate(["/user"], {replaceUrl: true});
+            })
     }
 }
