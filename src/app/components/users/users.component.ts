@@ -67,12 +67,4 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.dataSourceEtu.filter = filterValue.trim();
         this.dataSourceEtu.filter = filterValue.toLocaleLowerCase();
     }
-
-    peuplerUserBD() {
-        this.usersService.peuplerBDAvecForkJoin()
-            .subscribe(() => {
-                console.log("LA BD A ETE PEUPLEE, TOUS LES USERS AJOUTES, ON RE-AFFICHE LA LISTE");
-                this.router.navigate(["/user"], {replaceUrl: true});
-            })
-    }
 }

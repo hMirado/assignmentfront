@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {AuthGuard} from "../../guards/auth.guard";
 import {ToastrService} from 'ngx-toastr';
 import {User} from "../../shared/user.model";
+import {AssignmentsService} from "../../services/assignments.service";
+import {UsersService} from "../../services/users.service";
 
 @Component({
     selector: 'app-login',
@@ -20,7 +22,9 @@ export class LoginComponent implements OnInit {
     constructor(private authService: AuthService,
                 private router: Router,
                 private authGuard: AuthGuard,
-                private toastrService: ToastrService) {
+                private toastrService: ToastrService,
+                private assignmentsService: AssignmentsService,
+                private usersService:UsersService) {
     }
 
     ngOnInit(): void {
@@ -67,4 +71,23 @@ export class LoginComponent implements OnInit {
         });
     }
 
+    peuplerAssignmnents(){
+        this.usersService.getUsersPagine("professeur").subscribe(professeurs => {
+            const listProfesseur = professeurs;
+            this.usersService.getUsersPagine("etudiant").subscribe(etudiants => {
+                const listEtudiant = etudiants;
+                this.assignmentsService.peuplerBDAvecForkJoin(listProfesseur, listEtudiant).subscribe(Response => {
+                    console.log("base de donnée peuplée");
+                });
+            });
+        })
+    }
+
+    peuplerUserBD() {
+        this.usersService.peuplerBDAvecForkJoin()
+            .subscribe(() => {
+                console.log("LA BD A ETE PEUPLEE, TOUS LES USERS AJOUTES, ON RE-AFFICHE LA LISTE");
+                this.router.navigate(["/user"], {replaceUrl: true});
+            })
+    }
 }

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsersService } from 'src/app/services/users.service';
 import { AssignmentsService } from '../../services/assignments.service';
 import { Assignment } from './assignment.model';
-import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'app-assignments',
@@ -38,9 +35,7 @@ export class AssignmentsComponent implements OnInit {
     // on injecte le service de gestion des assignments
     constructor(private assignmentsService: AssignmentsService,
         private route: ActivatedRoute,
-        private router: Router,
-        private usersService:UsersService,
-                private authService: AuthService) {
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -182,17 +177,5 @@ export class AssignmentsComponent implements OnInit {
             });
         }
 
-    }
-
-    peuplerAssignmnents(){
-        this.usersService.getUsersPagine("professeur").subscribe(professeurs => {
-            const listProfesseur = professeurs;
-            this.usersService.getUsersPagine("etudiant").subscribe(etudiants => {
-                const listEtudiant = etudiants;
-                this.assignmentsService.peuplerBDAvecForkJoin(listProfesseur, listEtudiant).subscribe(Response => {
-                    console.log("base de donnée peuplée");
-                });
-            });
-        })
     }
 }

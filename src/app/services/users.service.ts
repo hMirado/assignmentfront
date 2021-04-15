@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../shared/user.model";
 import {LoggingService} from "../shared/logging.service";
 import {HttpClient} from "@angular/common/http";
-import {forkJoin, Observable} from "rxjs";
+import {forkJoin, generate, Observable} from "rxjs";
 import {usersGeneres} from "../shared/data";
 
 @Injectable({
@@ -12,14 +12,15 @@ export class UsersService {
   selecteUser: User;
   constructor(private loggingService:LoggingService, private http:HttpClient) { }
 
-  //uri = "http://localhost:8010/api/users";
-  uri = "https://miradoassignmentback.herokuapp.com/api/users";
+  uri = "http://localhost:8010/api/users";
+  //uri = "https://miradoassignmentback.herokuapp.com/api/users";
 
   getUsersPagine(role: string):Observable<any> {
     return this.http.get<User[]>(this.uri + "?role="+role)
   }
 
   addUser(user: User):Observable<any>{
+    user.id = user.role + this.generateId();
     return this.http.post(this.uri + '/register', user);
   }
 
@@ -33,10 +34,15 @@ export class UsersService {
       nouvelUser.password = a.password;
       nouvelUser.fName = a.fName;
       nouvelUser.lName = a.lName;
+      nouvelUser.id = a.role.slice(3) + this.generateId();
       nouvelUser.role = a.role;
 
       appelsVersAddUser.push(this.addUser(nouvelUser));
     });
     return forkJoin(appelsVersAddUser); // renvoie un seul Observable pour dire que c'est fini
+  }
+
+  generateId():number {
+    return Math.round(Math.random()*100000);
   }
 }
