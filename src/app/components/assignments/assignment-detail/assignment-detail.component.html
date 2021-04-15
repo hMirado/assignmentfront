@@ -9,10 +9,10 @@
                 <mat-card class="mt-3">
                     <div class="row">
                         <div class="col-4">
-                            <img *ngIf="assignmentTransmis.professeur.image; else snsImg"src="{{assignmentTransmis.professeur.image}}" class="example-header-image">
+                            <img *ngIf="assignmentTransmis.professeur.image; else snsImg"src="{{assignmentTransmis.professeur.image}}" style="width: 15em" class="example-header-image">
                             <ng-template #snsImg>
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU"
-                                     class="example-header-image"  alt="Photo de l'utilisateur">
+                                     style="width: 15em" class="example-header-image"  alt="Photo de l'utilisateur">
                             </ng-template>
                         </div>
                         <div class="col-4">
@@ -24,7 +24,7 @@
                             <p>
                                 Etudiant: {{ assignmentTransmis.auteur.fName + " " + assignmentTransmis.auteur.lName}}</p>
                             <p *ngIf="assignmentTransmis.rendu; else nonRendu">
-                                Note: {{ assignmentTransmis.note }}</p>
+                                Note: {{ assignmentTransmis.note }} / 20</p>
                             <ng-template #nonRendu>
                                 <p>Status: Pas encore rendu</p>
                             </ng-template>
